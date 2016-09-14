@@ -3,11 +3,11 @@ require File.join([File.dirname(__FILE__),'lib','megamaid','version.rb'])
 spec = Gem::Specification.new do |s| 
   s.name = 'megamaid'
   s.version = Megamaid::VERSION
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
+  s.author = 'Matt Krieger'
+  s.email = 'platform-ops@sportsengine.com'
+  s.homepage = 'https://www.sportsengine.com'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
+  s.summary = 'A suite of tools for cleaning up the mess you made of your AWS environment.'
   s.files = `git ls-files`.split("
 ")
   s.require_paths << 'lib'
