@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+require 'gli'
+require 'megamaid'
+
+
+include GLI::App
+
+program_desc 'A suite of tools for cleaning up the mess you made of your AWS environment.'
+
+version Megamaid::VERSION
+
+subcommand_option_handling :normal
+arguments :strict
+wrap_help_text :verbatim
+sort_help :manually
+
+flag    [:config],        :desc => "Megamaid config file path", :default_value => Megamaid::DefaultPaths.config
+flag    [:profile],       :desc => "AWS Credentials profile to use (will use the default profile or instance role if omitted)"
+flag    [:region],        :desc => "AWS region", :default_value => "us-east-1"
+
+switch  [:v,:verbose],    :desc => "Verbose output", :negatable => false
+switch  [:d,:debug],      :desc => "Debug output (Includes verbose)", :negatable => false
+switch  [:color],         :desc => "Colorize output", :default_value => true
+
+# Load all the command files
+commands_from '../lib/megamaid/commands'
+
+pre do |global,command,options,args|
+  Megamaid::GlobalConfig.load(global[:config]) if File.exists? global[:config]
+  Megamaid::GlobalConfig.merge! global
+  true
+end
+
+post do |global,command,options,args|
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit run(ARGV)
