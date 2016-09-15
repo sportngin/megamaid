@@ -38,7 +38,7 @@ module Megamaid
     private :method_missing
 
     def load_config(file)
-      raise MissingConfig, "Missing configuration file: #{file}  Run 'cloudcover help'" unless File.exist?(file)
+      raise MissingConfig, "Missing configuration file: #{file}  Run 'megamaid help'" unless File.exist?(file)
       config_data.merge! YAML.load_file(file)
     end
     private :load_config
