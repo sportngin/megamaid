@@ -28,6 +28,7 @@ commands_from '../lib/megamaid/commands'
 pre do |global,command,options,args|
   Megamaid::GlobalConfig.load(global[:config]) if File.exists? global[:config]
   Megamaid::GlobalConfig.merge! global
+  Aws.config.update(region: GlobalConfig.region)
   true
 end
 
